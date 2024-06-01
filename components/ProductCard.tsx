@@ -11,7 +11,7 @@ interface ProductCardProps {
 
 const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
   const primaryImage = product.media[0];
-  const secondaryImage = product.media.length > 1 ? product.media[1] : primaryImage;
+  const secondaryImage = product.media.length >= 1 ? product.media[0] : primaryImage;
 
   return (
     <Link
