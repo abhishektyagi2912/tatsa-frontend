@@ -10,31 +10,30 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
-  const primaryImage = product.media[0];
-  const secondaryImage = product.media.length >= 1 ? product.media[0] : primaryImage;
-
   return (
     <Link
       href={`/products/${product._id}`}
-      className="w-full sm:w-[48%] md:w-[31%] lg:w-[23%] xl:w-[22%] flex flex-col bg-white rounded-lg transition-transform transform hover:scale-105"
+      className="w-full sm:w-[48%] md:w-[31%] lg:w-[23%] flex flex-col bg-white rounded-lg transition-transform transform hover:scale-105"
     >
-      <div className="relative w-full h-96 overflow-hidden rounded-t-lg">
+      <div className="relative w-full h-80 overflow-hidden rounded-t-lg">
         <Image
-          src={primaryImage}
+          src={product.media[0]}
           alt="product"
           layout="fill"
-          className="object-cover transition-opacity duration-500 ease-in-out hover:opacity-0"
+          objectFit="cover"
+          className="transition-opacity duration-500 ease-in-out hover:opacity-0"
         />
-        {secondaryImage && (
+        {product.media.length > 1 && (
           <Image
-            src={secondaryImage}
+            src={product.media[0]}
             alt="product"
             layout="fill"
-            className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 hover:opacity-100"
+            objectFit="cover"
+            className="absolute top-0 left-0 w-full h-full transition-opacity duration-500 ease-in-out opacity-0 hover:opacity-100"
           />
         )}
       </div>
-      <div className="flex flex-col p-4 gap-2">
+      <div className="flex flex-col p-4 gap-1">
         <p className="text-lg font-semibold transition-colors duration-300 ease-in-out hover:text-blue-600 hover:underline">{product.title}</p>
         <p className="text-sm text-gray-500">{product.category}</p>
       </div>

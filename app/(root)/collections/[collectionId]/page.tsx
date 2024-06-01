@@ -11,7 +11,7 @@ const CollectionDetails = async ({
   const collectionDetails = await getCollectionDetails(params.collectionId);
 
   return (
-    <div className="px-10 py-5 flex flex-col items-center gap-8">
+    <div className="px-5 py-5 flex flex-col items-center gap-8">
       <Image
         src={collectionDetails.image}
         width={1500}
@@ -21,7 +21,7 @@ const CollectionDetails = async ({
       />
       <p className="text-heading3-bold text-grey-2">{collectionDetails.title}</p>
       <p className="text-body-normal text-grey-2 text-center max-w-[900px]">{collectionDetails.description}</p>
-      <div className="flex flex-wrap gap-16 justify-center">
+      <div className="flex flex-wrap gap-6 w-full max-w-screen-lg">
         {collectionDetails.products.map((product: ProductType) => (
           <ProductCard key={product._id} product={product} />
         ))}
@@ -33,4 +33,3 @@ const CollectionDetails = async ({
 export default CollectionDetails;
 
 export const dynamic = "force-dynamic";
-
