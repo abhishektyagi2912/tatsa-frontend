@@ -9,25 +9,37 @@ interface ProductCardProps {
   updateSignedInUser?: (updatedUser: UserType) => void;
 }
 
-const ProductCard = ({ product, updateSignedInUser }: ProductCardProps ) => {
+const ProductCard = ({ product, updateSignedInUser }: ProductCardProps) => {
+  const primaryImage = product.media[0];
+  const secondaryImage = product.media.length > 1 ? product.media[1] : primaryImage;
+
   return (
     <Link
       href={`/products/${product._id}`}
-      className="w-[220px] flex flex-col gap-2"
+      className="w-full sm:w-[48%] md:w-[31%] lg:w-[23%] xl:w-[22%] flex flex-col bg-white rounded-lg transition-transform transform hover:scale-105"
     >
-      <Image
-        src={product.media[0]}
-        alt="product"
-        width={250}
-        height={300}
-        className="h-[250px] rounded-lg object-cover"
-      />
-      <div>
-        <p className="text-base-bold">{product.title}</p>
-        <p className="text-small-medium text-grey-2">{product.category}</p>
+      <div className="relative w-full h-96 overflow-hidden rounded-t-lg">
+        <Image
+          src={primaryImage}
+          alt="product"
+          layout="fill"
+          className="object-cover transition-opacity duration-500 ease-in-out hover:opacity-0"
+        />
+        {secondaryImage && (
+          <Image
+            src={secondaryImage}
+            alt="product"
+            layout="fill"
+            className="absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ease-in-out opacity-0 hover:opacity-100"
+          />
+        )}
       </div>
-      <div className="flex justify-between items-center">
-        <p className="text-body-bold">${product.price}</p>
+      <div className="flex flex-col p-4 gap-2">
+        <p className="text-lg font-semibold transition-colors duration-300 ease-in-out hover:text-blue-600 hover:underline">{product.title}</p>
+        <p className="text-sm text-gray-500">{product.category}</p>
+      </div>
+      <div className="flex justify-between items-center px-4 pb-4">
+        <p className="text-lg font-bold">Rs. {product.price}</p>
         <HeartFavorite product={product} updateSignedInUser={updateSignedInUser} />
       </div>
     </Link>
